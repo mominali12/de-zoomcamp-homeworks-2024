@@ -1,0 +1,58 @@
+-- QUESTION 1: Which tag has the following text? - Automatically remove the container when it exits
+-- ANSWER: --rm
+
+-- QUESTION 2: Run docker with the python:3.9 image in an interactive mode and the entrypoint of bash. Now check the python modules that are installed ( use pip list ). What is version of the package wheel ?
+-- ANSWER: 0.42.0
+
+-- QUESTION 3: How many taxi trips were totally made on September 18th 2019?
+-- ANSWER: 15612
+-- QUERY
+/*
+select count(gt.index)
+from green_taxi_data as gt
+where date(gt.lpep_pickup_datetime) = '2019-09-18'
+and date(gt.lpep_dropoff_datetime) = '2019-09-18'
+*/
+
+-- QUESTION 4: Which was the pick up day with the largest trip distance Use the pick up time for your calculations.
+-- ANSWER: 2019-09-26
+-- QUERY
+/*
+select date(lpep_pickup_datetime) pickup_date, trip_distance
+from green_taxi_data as gt
+order by gt.trip_distance desc
+limit 1;
+*/
+
+
+-- QUESTION 5: Consider lpep_pickup_datetime in '2019-09-18' and ignoring Borough has Unknown
+-- Which were the 3 pick up Boroughs that had a sum of total_amount superior to 50000?
+-- ANSWER: "Brooklyn" "Manhattan" "Queens"
+-- QUERY
+/*
+select z."Borough", sum(gt.fare_amount)
+from zones as z, green_taxi_data as gt
+where z."Borough" is distinct from null and z."LocationID"=gt."PULocationID" and date(gt.lpep_pickup_datetime)= '2019-09-18'::date
+group by z."Borough"
+order by sum(gt.fare_amount) desc
+limit 3;
+*/
+
+
+-- QUESTION 6: For the passengers picked up in September 2019 in the zone name Astoria which 
+-- was the drop off zone that had the largest tip? We want the name of the zone, not the id.
+-- ANSWER: "JFK Airport"
+-- QUERY
+/*
+select z."Zone", z2."Zone", gt."DOLocationID", max(gt."tip_amount") as mtip
+from green_taxi_data as gt
+inner join zones as z on
+gt."PULocationID"=z."LocationID"
+inner join zones as z2 on
+gt."DOLocationID"=z2."LocationID"
+where DATE(gt.lpep_pickup_datetime) >= '2019-09-01' and DATE(gt.lpep_pickup_datetime) < '2019-10-01' AND z."Zone"='Astoria'
+group by z."Zone", z2."Zone", gt."DOLocationID"
+order by mtip desc
+limit 1;
+*/
+
