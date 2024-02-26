@@ -9,3 +9,4 @@ This repository contains my solutions submitted to de-zoomcamp 2024.
    - [Data Transform Blocks](https://github.com/mominali12/de-zoomcamp-homeworks-2024/tree/main/homework-2-orchestration-mage/transformers)
    - [Data Export Blocks](https://github.com/mominali12/de-zoomcamp-homeworks-2024/tree/main/homework-2-orchestration-mage/data_exporters)
    - [Pipeline](https://github.com/mominali12/de-zoomcamp-homeworks-2024/tree/main/homework-2-orchestration-mage/pipelines/green_taxi_etl)
+3. [Workshop 1: Data Ingestion Homework](https://github.com/mominali12/de-zoomcamp-homeworks-2024/blob/main/Homework_data_talks_club_data_extraction_and_ingestion.ipynb)
